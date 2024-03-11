@@ -51,6 +51,8 @@ def solve(N,M,K,a,b,c,d,e,f,s,g,t):
             for j in range(N):
                 if i != j:
                     model.add((2 - x[i,k] - x[j,k])*e + s[i][j] >= e)
+
+                    
     # độ tường đồng đồ án , giáo viên trong hội đồng phải >= f
     for k in range(K):
         for i in range(N):
@@ -81,6 +83,17 @@ def solve(N,M,K,a,b,c,d,e,f,s,g,t):
             for j in range(K):
                 if solver.Value(y[i,j]) == 1:
                     print(j+1, end=" ")
+        
+        print()
+        # print(K)
+        # for k in range(K):
+        #     print(sum([solver.Value(w[i,j,k])*s[i][j] for i in range(N) for j in range(N)]) )
+        #     print(sum([solver.Value(z[i,j,k])*g[i][j] for i in range(N) for j in range(M)]))
+        #     print('-'*20)
+        # print(
+        # [(cp_model.LinearExpr.sum([solver.Value(w[i,j,k])*s[i][j] for i in range(N) for j in range(N)]) 
+        #  + cp_model.LinearExpr.sum([solver.Value(z[i,j,k])*g[i][j] for i in range(N) for j in range(M)]))
+        #  for k in range(K)])
         solver.Solve(model)
         
         #print('\n',solver.objective_value)
@@ -136,10 +149,10 @@ if __name__ == '__main__':
         student = [int(x) - 1 for x in file.readline().split()]
         file.readline()
         teacher = [int(x) - 1 for x in file.readline().split()]
-        print(student, teacher)
-        print(calculate_objective(N,M,K,s,g,t,student,teacher))
-        # solve(N,M,K,a,b,c,d,e,f,s,g,t)
-        
-        print(N,M,K,a,b,c,d,e,f,s,g,t,student,teacher)
+        # print(student, teacher)
+        #print(calculate_objective(N,M,K,s,g,t,student,teacher))
+        solve(N,M,K,a,b,c,d,e,f,s,g,t)
+        #print(e,f)
+        # print(N,M,K,a,b,c,d,e,f,s,g,t,student,teacher)
 
     
